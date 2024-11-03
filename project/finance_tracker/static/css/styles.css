@@ -1,0 +1,314 @@
+/*Layout styling*/
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: x-large;
+}
+
+.form-container .d-flex.align-items-center {
+    margin-right: 25px; /* Adjust the value for desired spacing */
+}
+
+
+
+.form-label {
+    display: block; /* Ensure label takes full width */
+    margin-bottom: 10px; /* Space between label and select */
+    font-weight: 600; /* Bold label text */
+    color: #444; /* Darker label text color */
+    font-size: 0.9rem; /* Slightly larger font size */
+}
+
+.form-select {
+    width: 60%; /* Full width */
+    padding: 8px 8px; /* More padding for better touch target */
+    border: 2px solid #007bff; /* Slightly darker border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light gray background */
+    background-repeat: no-repeat; /* No repeat */
+    font-size: 1rem; /* Font size */
+    color: #333; /* Text color */
+    cursor: pointer; /* Pointer cursor */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for border and shadow */
+}
+
+.label-width {
+    width: 100px; /* Adjust this value as needed */
+    display: inline-block; /* Ensures the label takes the specified width */
+}
+
+
+/* Hover effect */
+.form-select:hover {
+    border-color: #0056b3; /* Darker blue border on hover */
+}
+
+/* Focus effect */
+.form-select:focus {
+    outline: none; /* Remove default outline */
+    border-color: #0056b3; /* Darker blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue shadow */
+}
+
+
+
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+
+.categoryPercent
+{
+    width: 75px;
+}
+
+/*Dashboard*/
+.card-body-dash{
+    padding-top: 0.5rem;
+    padding-right: 0.2rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.2rem;
+}
+
+canvas {
+    margin-top: 20px;
+}
+
+/* Styling for the financial summary section */
+.financial-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns: label and value */
+    column-gap: 40px; /* Adjust this value to control space between columns */
+    max-width: 600px; /* Adjust width as needed */
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.summary-item:last-child {
+    border-bottom: none; /* Remove bottom border on last item */
+}
+
+.summary-label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.summary-value {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.chart-container canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.transaction-history {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-history {
+    max-width: 1200px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-history h3 {
+    text-align: center;
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.transaction-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    height: 30px; /* Set the desired height */
+}
+
+.transaction-date {
+    width: 180px;
+    font-weight: bold;
+    color: #555;
+}
+
+.transaction-amount {
+    flex: 1.5;
+    font-size: 1.2em;
+
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.transaction-amount.income {
+    color: #2ecc71; /* Green for income */
+}
+
+.transaction-amount.expense {
+    color: #e74c3c; /* Red for expenses */
+}
+
+.transaction-category {
+    flex: 1.2;
+    color: #333;
+    font-style: italic;
+    padding-left: 10px;
+}
+
+.transaction-description {
+    flex: 2;
+    color: #666;
+    padding-left: 10px;
+    font-size: 1.2em;
+}
+
+.icon-income, .icon-expense {
+    margin-right: 8px;
+    font-size: 1.0em;
+    font-weight: bold;
+}
+
+
+header {
+    background-color: #3498db; /* Primary color */
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header h1 {
+    font-size: 2em;
+    margin: 0 0 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px; /* Space between left-aligned links */
+}
+
+.logout-link a, .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-link {
+    margin-left: auto;
+}
+
+.nav-links a:hover, .logout-link a:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    color: #f0f0f0;
+}
+
+.alert-box {
+    background-color: #e7f3fe; /* Light blue background */
+    color: #31708f; /* Darker blue text */
+    padding: 15px; /* Padding for the content */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #bce8f1; /* Light border color */
+    margin-bottom: 20px; /* Space below the alert */
+}
+
+.alert-box ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+.alert-box li {
+    margin-bottom: 5px; /* Space between list items */
+}
+
+/* Optional: add a hover effect */
+.alert-box:hover {
+    background-color: #d0e8ff; /* Slightly darker on hover */
+}
+
+body {
+    background-color: #f0f4f8; /* Soft light background */
+}
+
+.card {
+    border-radius: 10px; /* Rounded corners */
+}
+
+h2 {
+    color: #4A4A4A; /* Dark gray for better contrast */
+}
+
+
+
+.btn-primary:hover {
+    background-color: #003d7a; /* Darker on hover */
+}
+
+
+.btn-primary {
+    background-color: #007bff; /* Blue button */
+    border: none; /* No border */
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

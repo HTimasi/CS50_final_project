@@ -1,0 +1,184 @@
+{% extends "layout.html" %}
+
+{% block title %}History{% endblock %}
+
+{% block content %}
+<h2>Transaction History for {{ month_names[selected_month - 1] }} {{ selected_year }}</h2>
+
+<!-- Month and Year Selector -->
+<div class="container mt-4 form-container">
+    <form action="{{ url_for('index') }}" method="post" class="d-flex align-items-center">
+        <!-- Month Selection with margin-end -->
+        <div class="d-flex align-items-center me-4">
+            <label for="month" class="form-label mb-0 label-width">Select Month</label>
+            <select name="month" id="month" class="form-select ms-2">
+                {% for month in month_names %}
+                    <option value="{{ loop.index }}" {% if loop.index == selected_month %}selected{% endif %}>
+                        {{ month }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Year Selection with margin-end -->
+        <div class="d-flex align-items-center me-4">
+            <label for="year" class="form-label mb-0 label-width">Select Year</label>
+            <select name="year" id="year" class="form-select ms-2">
+                {% for year in years %}
+                    <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>
+                        {{ year }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- View Transactions Button with margin-end (optional if needed) -->
+        <div>
+            <button type="submit" class="btn btn-primary">View Transactions</button>
+        </div>
+    </form>
+</div>
+
+<!-- History display table -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="text-align: center;">Date</th>
+            <th style="text-align: center;">Category</th>
+            <th style="text-align: center;">Type</th>
+
+            <th style="text-align: center;">Description</th>
+            <th style="text-align: center;">Amount (€)</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+            <tr>
+                <td style="text-align: center;">{{ transaction.date.strftime('%Y-%m-%d') if transaction.date else 'N/A' }}</td>
+                <td style="text-align: center;">{{ category_display_names.get(transaction.category.lower().replace(' ', '_'), transaction.category) }}</td>
+                <td style="color: {% if transaction.transaction_type == 'income' %}green{% else %}red{% endif %}; text-align: center;">
+                    {{ transaction.transaction_type }}</td>
+
+                <td>{{ transaction.description }}</td>
+                <td style="text-align: center;">{{ transaction.amount }}</td>
+                <td style="text-align: center;">
+                    <a href="{{ url_for('edit_transaction', transaction_id=transaction.id) }}" style="margin-right: 15px;">Edit</a>
+                    <form action="{{ url_for('delete_transaction', transaction_id=transaction.id) }}" method="post" style="display:inline;">
+                        <a href="#" onclick="if(confirm('Are you sure you want to delete this transaction?')) { this.closest('form').submit(); } return false;"
+                        style="color: red; text-decoration: underline; cursor: pointer;">Delete</a>
+                    </form>
+
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Cahrts -->
+<h3></h3>
+<div class="chart-container">
+    <div style="display: flex; justify-content: space-around;">
+        <div>
+            <h4>Expenses by Category</h4>
+            <canvas id="expenseChart" width="600" height="400"></canvas>
+        </div>
+        <div>
+            <h4>Income vs. Expenses</h4>
+            <canvas id="incomeExpenseChart" width="450" height="320"></canvas>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Expense by Category Chart (Left Chart)
+        const expenseCtx = document.getElementById('expenseChart').getContext('2d');
+
+        // Customize colors for each category
+        const categoryColors = [
+            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+            '#FF9F40', '#E7E9ED', '#71B37C', '#FFCD56', '#A8B3C5',
+            '#FF6384', '#36A2EB', '#4BC0C0', '#FFCE56'
+        ];
+
+        const expenseData = {
+            labels: [
+                "Apartment", "TV", "Bills", "Education", "Food & Drink",
+                "Groceries", "Health & Fitness", "Investments",
+                "Borrow", "Vehicle & Transports", "Travel", "Shopping",
+                "Entertainment", "Other"
+            ],
+            datasets: [{
+                label: 'Euro (€)',
+                data: [
+                    {{ category_expenses['apartment'] }},
+                    {{ category_expenses['tv'] }},
+                    {{ category_expenses['bills'] }},
+                    {{ category_expenses['education'] }},
+                    {{ category_expenses['food_and_drink'] }},
+                    {{ category_expenses['groceries'] }},
+                    {{ category_expenses['health_and_fitness'] }},
+                    {{ category_expenses['investments'] }},
+                    {{ category_expenses['borrow'] }},
+                    {{ category_expenses['vehicle_and_transports'] }},
+                    {{ category_expenses['travel'] }},
+                    {{ category_expenses['shopping'] }},
+                    {{ category_expenses['entertainment'] }},
+                    {{ category_expenses['other'] }}
+                ],
+                backgroundColor: categoryColors,
+                borderColor: categoryColors.map(color => color.replace('0.2', '1')), // Darken border color
+                borderWidth: 1
+            }]
+        };
+
+        const expenseChart = new Chart(expenseCtx, {
+            type: 'bar',
+            data: expenseData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 2. Income vs. Expenses Chart (Right Chart)
+        const incomeExpenseCtx = document.getElementById('incomeExpenseChart').getContext('2d');
+
+        // Right chart data
+        const incomeExpenseData = {
+            labels: ["Expenses", "Investments", "Saved"],
+            datasets: [{
+                label: 'Euro (€)',
+                data: [
+                    {{ total_expenses - category_expenses['investments'] }},
+                    {{ category_expenses['investments'] }},
+                    {{ net_balance }}
+                ],
+                backgroundColor: ['#4BC0C0', '#FF6384', '#36A2EB'],
+                borderColor: ['#4BC0C0', '#FF6384', '#36A2EB'],
+                borderWidth: 1
+            }]
+        };
+
+        const incomeExpenseChart = new Chart(incomeExpenseCtx, {
+            type: 'bar',
+            data: incomeExpenseData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}
