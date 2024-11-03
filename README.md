@@ -19,7 +19,7 @@ A web-based application to help users manage and track their personal finances. 
 - **Notifications**: Alerts for important account changes or errors.
 
 ## Demo
-A live demo of the project can be accessed here: [Demo URL]([#](https://youtu.be/3mp9Y-d6idE))
+A live demo of the project can be accessed here: [Demo URL](https://youtu.be/3mp9Y-d6idE)
 
 ## Installation
 
