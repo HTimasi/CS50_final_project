@@ -1,4 +1,5 @@
 Personal Finance Tracker
+
 A web-based application to help users manage and track their personal finances. Users can view financial history, change settings, and securely log in or register.
 
 Table of Contents
