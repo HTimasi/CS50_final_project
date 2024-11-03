@@ -28,7 +28,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/HTimasi/personal-finance-tracker.git
+git clone https://github.com/HTimasi/CS50_final_project/personal-finance-tracker.git
 cd personal-finance-tracker
 Create a virtual environment:
 
@@ -65,7 +65,19 @@ Home: Main dashboard with an overview of finances.
 History: Detailed financial transaction records.
 Change Password: Update password securely.
 Login/Register: Login for existing users, register for new users.
+Configuration
+Update config.py or use environment variables to configure the following:
 
+Database URL: Define your SQL database connection string.
+Google Analytics ID: For tracking user activity (optional).
+Secret Key: Used by Flask for session management and CSRF protection.
+Example .env file:
+
+bash
+Copy code
+DATABASE_URL=postgresql://username:password@localhost/db_name
+SECRET_KEY=your_secret_key
+GA_TRACKING_ID=UA-XXXXX-Y
 Technologies
 Backend: Flask, Jinja2
 Frontend: Bootstrap, HTML, CSS, JavaScript, Font Awesome
